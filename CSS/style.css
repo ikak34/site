@@ -18,6 +18,10 @@ body{
 	margin: 0px;
 }
 
+.skillsList li {
+	margin-right: 10%;
+}
+
 .introduction {
 	text-align: center;
 }
