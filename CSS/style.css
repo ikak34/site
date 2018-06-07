@@ -67,6 +67,10 @@ header {
     border-radius: 16px;
 }
 
+a:hover{
+	color: #00cc00;
+}
+
 a {
 	color: cyan;
 	text-shadow: 0px 0px 40px cyan;
