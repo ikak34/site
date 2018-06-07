@@ -22,6 +22,11 @@ body{
 	margin-left: 10%;
 }
 
+.projectsList a {
+	float: right;
+	margin-right: 45%;
+}
+
 .educationList li {
 	margin-left: 10%;
 }
@@ -43,18 +48,6 @@ body{
 	display: inline;
 	margin: 50px;
 }
-
-
-.alignLeft {
-	margin-left: 10%;
-	display: inline;
-}
-
-.alignRight {
-	margin-left : 70%;
-	display: inline;
-}
-
 
 .language img {
 	width: 5%;
