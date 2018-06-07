@@ -9,6 +9,19 @@ body{
 	margin: 0px;
 }
 
+.introduction {
+	text-align: center;
+}
+
+.categorie {
+	text-align: center;
+}
+
+.categorie li{
+	display: inline;
+	margin: 50px;
+}
+
 header {
     padding: 20px 40px;
     top: 0px;
@@ -19,6 +32,11 @@ header {
     border-color: #00cc00;
     border-style: solid;
     border-radius: 16px;
+}
+
+a {
+	color: cyan;
+	text-shadow: 2px 2px 4px cyan;
 }
 
 h1 {
