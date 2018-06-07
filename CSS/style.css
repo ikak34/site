@@ -1,9 +1,28 @@
 html {
   background-image: url("../Images/background.jpg");
   height:100%;
+  color: white;
+  font-family: "Open Sans";
+}
+
+body{
+	margin: 0px;
+}
+
+header {
+    padding: 20px 40px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(14, 14, 14, 0.7);
+    z-index: 99;
+    border-color: #00cc00;
+    border-style: solid;
+    border-radius: 16px;
 }
 
 h1 {
     color: #00cc00;
     text-shadow: 2px 2px 4px #00cc00;
 }
+
