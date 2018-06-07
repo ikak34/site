@@ -39,8 +39,17 @@ a {
 	text-shadow: 2px 2px 4px cyan;
 }
 
-h1 {
+h1, h2, h3 {
     color: #00cc00;
+    text-align: center;
     text-shadow: 2px 2px 4px #00cc00;
+}
+
+h3 {
+	border-top-style: solid;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 5%;
+	margin-bottom: 2%;
 }
 
