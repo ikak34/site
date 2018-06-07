@@ -11,15 +11,24 @@ p {
 
 img {
 	float: right;
-	margin-right: 2%;
+	margin-right: 1%;
 }
 
 body{
 	margin: 0px;
 }
 
+.projectsList li {
+	margin-left: 10%;
+}
+
+.educationList li {
+	margin-left: 10%;
+}
+
 .skillsList li {
 	margin-right: 10%;
+	margin-left: 10%;
 }
 
 .introduction {
