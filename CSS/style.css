@@ -18,6 +18,28 @@ body{
 	margin: 0px;
 }
 
+footer {
+	overflow: auto;
+    padding: 20px 40px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(14, 14, 14, 0.7);
+    z-index: 99;
+    border-color: #00cc00;
+    border-style: solid;
+    border-radius: 16px;
+    text-align: center;
+}
+
+footer img {
+	display: inline;
+}
+
+footer h1{
+	display: inline;
+}
+
 .projectsList li {
 	margin-left: 10%;
 }
