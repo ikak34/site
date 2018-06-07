@@ -5,6 +5,15 @@ html {
   font-family: "Open Sans";
 }
 
+p {
+	overflow: auto;
+}
+
+img {
+	float: right;
+	margin-right: 2%;
+}
+
 body{
 	margin: 0px;
 }
@@ -20,6 +29,17 @@ body{
 .categorie li{
 	display: inline;
 	margin: 50px;
+}
+
+
+.alignLeft {
+	margin-left: 10%;
+	display: inline;
+}
+
+.alignRight {
+	margin-left : 70%;
+	display: inline;
 }
 
 header {
