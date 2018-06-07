@@ -1,5 +1,6 @@
 html {
-  background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
+  background-image: url("../Images/background.jpg");
+  height:100%;
 }
 
 h1 {
