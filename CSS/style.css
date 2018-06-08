@@ -9,7 +9,22 @@ p {
 	overflow: auto;
 }
 
-img {
+li {
+	list-style-type: none;
+}
+
+.EtoileVide, .EtoilePleine {
+	float: right;
+	margin-right: 1%;
+}
+
+header img {
+	float: right;
+	margin-right: 1%;
+	display: inline;
+}
+
+footer img {
 	float: right;
 	margin-right: 1%;
 }
@@ -32,21 +47,29 @@ footer {
     text-align: center;
 }
 
-footer img {
-	display: inline;
-}
-
 footer h1{
 	display: inline;
 }
 
+
+
+.projectsList {
+	margin-left: 10%;
+}
+
+.Chevron {
+	width: 1%;
+	height: 1%;
+}
+
 .projectsList li {
 	margin-left: 10%;
+	margin-top: 1%;
 }
 
 .projectsList a {
 	float: right;
-	margin-right: 40%;
+	margin-right: 30%;
 }
 
 .educationList li {
