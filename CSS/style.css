@@ -69,6 +69,7 @@ footer h1{
 .categorie li{
 	display: inline;
 	margin: 50px;
+	font-family: "Aldrich";
 }
 
 .language img {
@@ -99,10 +100,17 @@ a {
 	text-shadow: 0px 0px 40px cyan;
 }
 
-h1, h2, h3 {
+h1 {
     color: #00cc00;
     text-align: center;
     text-shadow: 0px 0px 40px #00cc00;
+}
+
+h2, h3 {
+    color: #00cc00;
+    text-align: center;
+    text-shadow: 0px 0px 40px #00cc00;
+    font-family: "Aldrich";
 }
 
 h3 {
