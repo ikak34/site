@@ -18,7 +18,20 @@
   </header>
   <div class="introduction">
     <h1>Solveur de Rubik's Cube</h1>
-    <p>Projet fait dans le cadre de l'UE de Logique/p>
+    <p>Projet fait dans le cadre de l'UE de Logique</p>
+  </div>
+  <div class="resolution">
+    <h3>Méthode de résolution</h3>
+    <p>Afin de réaliser ce projet, nous avons utiliser le language <a href="https://fr.wikipedia.org/wiki/Prolog">Prolog</a>. Nous devions réaliser la première étape de résolution d'un Rubik's Cube : réaliser une croix sur une des faces du cube.</p>
+    <p>Pour cela, nous avons suivi la méthode suivante :</p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 1 :</b> Nous testons les arrêtes sur la face étudiée. Si une arrête ne marche pas, nous faisons appel à un prédicat move(‘X’, CubeDebut, CubeFin), afin de faire un quart de tour sur la face étudiée. Si au bout de 4 move, l’arrête n’a toujours pas été trouvée, nous passons à l’étape 2.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 2 :</b> Nous faisons appel à un prédicat move(‘X’, CubeDebut, CubeFin) où X est une face perpendiculaire à la face du haut, et donc aucune arrêtes n’a déjà été fixée (voir explication prédicats placementX). Puis on retourne à l’étape 1. Si après avoir testé toutes les faces perpendiculaires disponible l’arrête n’a toujours pas été trouvée, alors nous passons à l’étape 3.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 3 :</b> Nous faisons appel au prédicat move(‘Bas’, CubeDebut, CubeFin) puis nous retournons à l’étape 2</p></li>
+    </ul>
+    <p>Enfin, nous recommençons ces boucles jusqu’à ce qu’un prédicat memecouleurX réussisse.</p>
+    <h3>Le code</h3>
+    <p>Le cube possède 2 représentations : le cube à plat, et le cube structuré.</p>
   </div>
 </body>
 </html>
