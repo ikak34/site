@@ -11,6 +11,7 @@
 </head>
 <body>
   <header>
+    <p><a href="https://ikak34.github.io/site/indexFR.html">Accueil</a></p>
     <div class="language">
       <a href="https://ikak34.github.io/site/rubiksCubeFR"><img style="width: 2%; height: 2%;" src="Images/france.png" alt="France"></a>
       <a href="https://ikak34.github.io/site/rubiksCubeEN"><img style="width: 2%; height: 2%;" src="Images/english.png" alt="Anglais"></a>
@@ -22,16 +23,154 @@
   </div>
   <div class="resolution">
     <h3>Méthode de résolution</h3>
-    <p>Afin de réaliser ce projet, nous avons utiliser le language <a href="https://fr.wikipedia.org/wiki/Prolog">Prolog</a>. Nous devions réaliser la première étape de résolution d'un Rubik's Cube : réaliser une croix sur une des faces du cube.</p>
+    <p>Afin de réaliser ce projet, nous avons utiliser le language <a href="https://fr.wikipedia.org/wiki/Prolog">Prolog</a>. Nous devions réaliser la première étape de résolution d'un Rubik's Cube : réaliser une croix sur une des faces du cube, puis renvoyer à l'utilisateur la liste des rotations a faire sur son cube pour arriver à cette croix.</p>
     <p>Pour cela, nous avons suivi la méthode suivante :</p>
     <ul>
       <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 1 :</b> Nous testons les arrêtes sur la face étudiée. Si une arrête ne marche pas, nous faisons appel à un prédicat move(‘X’, CubeDebut, CubeFin), afin de faire un quart de tour sur la face étudiée. Si au bout de 4 move, l’arrête n’a toujours pas été trouvée, nous passons à l’étape 2.</p></li>
       <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 2 :</b> Nous faisons appel à un prédicat move(‘X’, CubeDebut, CubeFin) où X est une face perpendiculaire à la face du haut, et donc aucune arrêtes n’a déjà été fixée (voir explication prédicats placementX). Puis on retourne à l’étape 1. Si après avoir testé toutes les faces perpendiculaires disponible l’arrête n’a toujours pas été trouvée, alors nous passons à l’étape 3.</p></li>
       <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Etape 3 :</b> Nous faisons appel au prédicat move(‘Bas’, CubeDebut, CubeFin) puis nous retournons à l’étape 2</p></li>
     </ul>
-    <p>Enfin, nous recommençons ces boucles jusqu’à ce qu’un prédicat memecouleurX réussisse.</p>
+    <p>Enfin, nous recommençons ces boucles jusqu’à ce qu’un prédicat memecouleurX réussisse. Lorsque ce prédicat réussi, on stock dans une liste toutes les rotations effectuées pour arriver à ce résultat.</p>
     <h3>Le code</h3>
     <p>Le cube possède 2 représentations : le cube à plat, et le cube structuré.</p>
+    <p>Le premier représente tout simplement chaque face de petit cube. Voici à quoi correspond chaque X : </p>
+    <div class="boite">
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face du haut : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face derrière)</p>
+        <p>19 33 7</p>
+        <p>< (face gauche) 35 X1 31 (face droite) ></p>
+        <p>29 37 17</p>
+        <p>(face devant)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face du bas : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face devant)</p>
+        <p>25 53 13</p>
+        <p>< (face gauche) 48 X6 42 (face droite) ></p>
+        <p>23 52 11</p>
+        <p>(face derrière)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face de gauche : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face haut)</p>
+        <p>21 36 30</p>
+        <p>< (face derrière) 45 X4 49 (face devant) ></p>
+        <p>24 47 27</p>
+        <p>(face bas)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face de droite : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face haut)</p>
+        <p>18 32 9</p>
+        <p>< (face devant) 43 X2 39 (face derrière) ></p>
+        <p>15 41 12</p>
+        <p>(face bas)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face de devant : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face haut)</p>
+        <p>28 38 16</p>
+        <p>< (face gauche) 50 X3 44 (face droite) ></p>
+        <p>26 54 14</p>
+        <p>(face bas)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Face de derrière : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(face haut)</p>
+        <p>8 34 20</p>
+        <p>< (face droite) 40 X5 46 (face gauche) ></p>
+        <p>10 51 22</p>
+        <p>(face bas)</p>
+        <p>v</p>
+        </div>
+      </div>
+    </div>
+    <p>C'est cette représentation que nous utiliserons la plupart du temps dans les prédicats.</p>
+    <p>La 2e représentation représente chaque pièce en associant les faces qui lui sont associées (1 face pour le centre, 2 face pour les côtés, et 3 faces pour les angles).</p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>Il y a ensuite 6 prédicats <b>move</b> servant à simuler une rotation d'un rubik's cube. Une rotation inversée correspondant à 3 fois une rotation classique.</p>
+    <p>Chaque prédicat associe donc une face <i>('Droite', 'Gauche', 'Haut', 'Bas', 'Devant', 'Derriere')</i> à la rotation du cube. Chaque rotation tourne dans le sens suivant : </p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Haut : </b>Sens des aiguilles d'une montre sur la face du haut.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Droite : </b> Sens des aiguilles d'une montre sur la face de droite.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Devant :</b> Sens des aiguilles d'une montre sur la face de devant.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Bas : </b>Sens inverse des aiguilles d'une montre sur la face du bas.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Gauche : </b> Sens inverse des aiguilles d'une montre sur la face de gauche.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Derriere :</b> Sens inverse des aiguilles d'une montre sur la face de derrière.</p></li>
+    </ul>
+    <p>Le prédicat <b>move_list</b> effectue une série de rotation à partir d’une liste et remplie la liste de rotation effectué depuis le début sur le cube. Il fait appel à move en utilisant chaque face de la liste donnée en paramètre.</p>
+    <p><i>Par exemple move_list([‘Droite’, ‘Gauche’, ‘Bas’], CubeDebut, CubeFin, ListeDebut, ListeFin), effectuera les rotations move(‘Droite’, CubeDebut, CubeFin), move(‘Gauche’, CubeDebut, CubeFin), et move(‘Bas’, CubeDebut, CubeFin)</i></p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>Les prédicats <b>memecouleurX</b>, où X correspond à une face, recherchent si les couleurs des faces du petit cube situé entre la face du haut et X sont de la meme couleur que la face du petit cube du milieu de la face du haut et X.</p>
+    <p><i>Par exemple si la couleur de la face du haut est blanche, que la couleur de la face de devant est rouge, et que l’on exécute memecouleurDevant, le prédicat renvoie vrai si les arrêtes du petits cube du bas de la face du haut sont blanche et bleue, sinon il renvoie faux.</i></p>
+    <p id="memeCouleurInverse">Le prédicat <b>memecouleurDevantinverse</b>, vérifie si le petit cube du bas de la face du haut à ses couleurs inversées.</p>
+    <p><i>Par exemple, si on reprend l’exemple ci-dessus, le prédicats renverra vrai si les couleurs des arrêtes du petits cube du bas de la face du haut sont bleue et blanche. Si le prédicat est vraie, alors il effectue une rotation spéciale touchant aux arrêtes déjà placées, mais les remettant ensuite en place.</i></p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>Les prédicats <b>placementX</b>, où X correspond à une face, place le cube entre la face du haut et X correctement. Ils effectuent différentes séries de rotations afin de tester toutes les arrêtes du cube.
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDroite </b>étant le premier placement, aucun côtés n’est interdit car aucun petit cube n’est déjà bien placé, il effectue donc toutes les rotations possibles.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDerriere </b>n’effectue aucune rotation de la face droite car placementDroite a déjà bien placé le cube sur la droite, il ne faut donc pas le déplacer.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementGauche</b> n’effectue aucune rotation sur la Droite et Derriere.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDevant</b> n’effectue aucune rotation sur la Droite, le Derriere ou la Gauche, sauf si les couleurs sont inversées (voir <a href="#memeCouleurInverse">memecouleurDevantinverse</a>)</p></li>
+    </ul>
+    <h3>Exemples d'éxécution</h3>
+    <p>Voici quelques exemples de cube ainsi que ce que retourne dans L le programme après éxécution de la commande cube(cubeExemple, L).</p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Cube 1 : </b><br><br>
+        [blanc, rouge, vert, orange, bleu, jaune, rouge, vert, blanc, vert, jaune, orange, blanc, vert, orange, bleu, blanc, orange, bleu, jaune, orange, rouge, jaune, bleu, jaune, rouge, vert, rouge, bleu, blanc, orange, jaune, vert, orange, blanc, vert, rouge, jaune, vert, jaune, rouge, vert, bleu, rouge, orange, bleu, blanc, rouge, jaune, bleu, orange, blanc, bleu, blanc]<br><br>
+        Afin de réaliser une croix sur la face du haut de ce cube, il faut réaliser les rotations : <br><br>
+        ['Derriere', 'Devant', 'Gauche', 'Droite', 'Bas', 'Derriere', 'Devant', 'Gauche', 'Droite', 'Derriere', 'Devant', 'Gauche', 'Droite', 'Bas', 'Derriere', 'Devant', 'Gauche', 'Droite', 'Derriere', 'Devant', 'Gauche', 'Droite', 'Bas', 'Derriere', 'Droite', 'Droite', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Devant', 'Derriere', 'Bas', 'Gauche', 'Devant', 'Derriere', 'Gauche', 'Derriere', 'Gauche', 'Devant', 'Bas', 'Gauche', 'Devant', 'Gauche', 'Devant', 'Bas', 'Devant' , 'Gauche', 'Devant', 'Devant', 'Devant', 'Devant', 'Droite', 'Droite', 'Droite', 'Bas', 'Droite', 'Devant', 'Devant']</p></li>
+    </ul>
+    <p>Autant dire que ce cube n'était pas le plus simple.</p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Cube 2 : </b><br><br>
+        [blanc, vert, orange, bleu, rouge, jaune, blanc, orange, bleu, vert, rouge, jaune, orange, blanc, vert, bleu, rouge, blanc, jaune, orange, bleu, blanc, vert, rouge, bleu, rouge, jaune, jaune, vert, orange, orange, jaune, vert, blanc, jaune, vert, rouge, vert, bleu, jaune, blanc, rouge, orange, bleu, orange, blanc, bleu, rouge, bleu, blanc, orange, vert, rouge, jaune]<br><br>
+        Afin de réaliser une croix sur la face du haut de ce cube, il faut réaliser les rotations : <br><br>
+        ['Derriere','Droite','Droite','Droite','Derriere','Derriere','Derriere','Gauche','Devant','Bas','Devant','D evant','Bas','Devant','Devant','Bas','Devant','Devant']</p></li>
+    </ul>
+    <p>On peut voir que ce cube est beaucoup plus simple !</p>
+    <h3>Code source</h3>
+    <p>Si vous souhaitez télécharger le code source de ce programme, <a href="http://www.mediafire.com/file/25c8a7mdcj1r87i/Rubik%27s%20Cube.pl">suivez ce lien</a>. Mais n'oubliez pas que vous devez avoir un compilateur prolog d'installer sur votre machine pour l'éxécuter. Ce projet ayant été réalisé pour fonctionner sur GNU Prolog, je vous conseille d'installer <a href="http://www.gprolog.org/">celui-ci.</a></p>
   </div>
+  <br>
+  <footer>
+  <div class="socialMedia">
+    <h1>N'hésitez pas à me contacter !</h1>
+    <a href="mailto:clement.lecoeur34@gmail.com"><img src="Images/mail.png" alt="France"></a>
+    <a href="https://www.linkedin.com/in/clement-lecoeur-b94000109/"><img src="Images/linkedin.png" alt="France"></a>
+  </div>
+  </footer>
 </body>
 </html>
