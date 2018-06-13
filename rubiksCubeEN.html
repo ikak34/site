@@ -11,6 +11,7 @@
 </head>
 <body>
   <header>
+    <p><a href="https://ikak34.github.io/site/index">HOME</a></p>
     <div class="language">
       <a href="https://ikak34.github.io/site/rubiksCubeFR"><img style="width: 2%; height: 2%;" src="Images/france.png" alt="France"></a>
       <a href="https://ikak34.github.io/site/rubiksCubeEN"><img style="width: 2%; height: 2%;" src="Images/english.png" alt="Anglais"></a>
@@ -18,8 +19,162 @@
   </header>
   <div class="introduction">
     <h1>The Rubik's Cube Solver</h1>
-    <p>Project made for the Logic Course</p>
+    <p>Project made for the Logic's course</p>
   </div>
-  <h1>This page has not been made yet. But if you know how to read French, you can visit the French Page !</h1>
+  <div class="resolution">
+    <h3>Resolution method</h3>
+    <p>In order to realize this project, we used the programming language <a href="https://en.wikipedia.org/wiki/Prolog">Prolog</a>. We had to realize the first step of solving a Rubik's Cube : make a cross on one of the sides of the cube, then return to the user the list of the rotations to make on his cube to arrive at this cross.</p>
+    <p>For this, we followed the following method : </p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Step 1 :</b> We test the edges on the studied side. If a stop does not work, we use the predicate move('X', CubeDebut, CubeFin), to make a quarter turn on the studied side. If after 4 move, the stop has still not been found, we go to step 2.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Step 2 :</b> We use the predicate move('X', CubeDebut, CubeFin) where X is a side perpendicular to the top side, and therefore no edges have already been fixed (see explanation predicates placementX). Then we go back to step 1. If after testing all available perpendicular sides the stop has still not been found, then we go to step 3.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Step 3 :</b> We use the predicate move('Bas', CubeDebut, CubeFin) and then return to Step 2</p></li>
+    </ul>
+    <p>Finally, we repeat these loops until a predicate memecouleurX succeeds. When this predicate succeeds, we store in a list all the rotations made to arrive at this result.</p>
+    <h3>The code</h3>
+    <p>The cube has 2 representations: the flat cube, and the structured cube.</p>
+    <p>The first simply represents each small cube side. Here is what each X corresponds to:</p>
+    <div class="boite">
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Top side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Back side)</p>
+        <p>19 33 7</p>
+        <p>< (Left side) 35 X1 31 (Right side) ></p>
+        <p>29 37 17</p>
+        <p>(Front side)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Bottom side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Front side)</p>
+        <p>25 53 13</p>
+        <p>< (Left side) 48 X6 42 (Right side) ></p>
+        <p>23 52 11</p>
+        <p>(Back side)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Left side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Top side)</p>
+        <p>21 36 30</p>
+        <p>< (Back side) 45 X4 49 (Front side) ></p>
+        <p>24 47 27</p>
+        <p>(Bottom side)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Right side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Top side)</p>
+        <p>18 32 9</p>
+        <p>< (Front side) 43 X2 39 (Back side) ></p>
+        <p>15 41 12</p>
+        <p>(Bottom side)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Front side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Top side)</p>
+        <p>28 38 16</p>
+        <p>< (Left side) 50 X3 44 (Right side) ></p>
+        <p>26 54 14</p>
+        <p>(Bottom side)</p>
+        <p>v</p>
+        </div>
+      </div>
+      <div class="element">
+        <p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Back side : </b></p>
+        <div style="text-align: center;">
+        <p>^</p>
+        <p>(Top side)</p>
+        <p>8 34 20</p>
+        <p>< (Right side) 40 X5 46 (Left side) ></p>
+        <p>10 51 22</p>
+        <p>(Bottom side)</p>
+        <p>v</p>
+        </div>
+      </div>
+    </div>
+    <p>It is this representation that we use most of the time in predicates</p>
+    <p>The second representation represents each piece by associating the sides associated with it (1 side for the center, 2 side for the sides, and 3 sides for the angles).</p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>There are then 6 <b>move</b> predicates used to simulate a rotation of a rubik's cube. An inverted rotation corresponding to 3 times a conventional rotation.</p>
+    <p>Each predicate therefore associates a side <i>('Droite', 'Gauche', 'Haut', 'Bas', 'Devant', 'Derriere')</i> to the rotation of the cube. Each rotation turns in the following direction:</p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Haut : </b>Clockwise on the top side.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Droite : </b>Clockwise on the right side.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Devant : </b>Clockwise on the front side.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Bas : </b>Counterclockwise on the bottom side.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Gauche : </b>Counterclockwise on the left side.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Derriere :</b>Counterclockwise on the back side.</p></li>
+    </ul>
+    <p>The <b>move_list</b> predicate performs a series of rotations from a list and populates the rotation list made from the beginning on the cube. It uses move using each side of the list given in parameter.</p>
+    <p><i>For example move_list ([‘Droite’, ‘Gauche’, ‘Bas’], CubeDebut, CubeFin, ListeDebut, ListeFin), perform the rotations move('Droite', StartCube, CubeFin), move('Gauche', CubeDebut, CubeFin ), and move('Bas', CubeDebut, CubeFin)</i></p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>The predicates <b>memecouleurX</b>, where X is a side, look for if the colors of the sides of the small cube located between the top side and X are of the same color as the side of the small cube in the middle of the side of the top and X.</p>
+    <p><i>For example, if the color of the top side is white, the color of the front side is red, and you run memecolorDevant, the predicate returns true if the edges of the small cube at the bottom of the top side are white and blue, otherwise it returns false.</i></p>
+    <p id="memeCouleurInverse">The predicate <b>memecouleurDevantinverse</b>, checks whether the small cube from the bottom of the top side to its inverted colors.</p>
+    <p><i>For example, if we take the example above, the predicates will return true if the colors of the small cubic edges of the bottom of the top side are blue and white. If the predicate is true, then it first rotates to the already placed edges, but then puts them back in place.</i></p>
+    <br>
+    <div class="separateur">
+    <br>
+    </div>
+    <p>The <b>placementX</b> predicates, where X is a side, places the cube between the top side and X correctly. They perform different rounds of rotations to test all the edges of the cube.
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDroite </b>being the first placement, no sides are forbidden because no small cube is already well placed, so it performs all possible rotations to place the right edge.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDerriere </b>does not rotate the right side because PlacementDroite has already placed the cube on the right, so do not move it.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementGauche</b> does not rotate on the Right and Back sides.</p></li>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> PlacementDevant</b> does not rotate on the Right, Back, or Left unless the colors are reversed (see <a href="#memeCouleurInverse">memecouleurDevantinverse</a>)</p></li>
+    </ul>
+    <h3>Examples of execution</h3>
+    <p>Here are some examples of cube as well as what returns in L the program after execution of the command cube(exampleCube, L).</p>
+    <div class="beware">
+      <p>As the program as been made in french, all returned rotations are in french. I traduced it to make explaination easier to understand but you will have the result in french if you execute this command in the program !</p>
+      <p>In the other hand, the color can be in the language you want as the programm only test if the color1Name == color2Name. But the cube have to be realistic ! There is no cube with 54 differents colors for example.</p>
+    </div>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Cube 1 : </b><br><br>
+        [white, red, green, orange, blue, yellow, red, green, white, green, yellow, orange, white, green, orange, blue, white, orange, blue, yellow, orange, red, yellow, blue, yellow red, green, red, blue, white, orange, yellow, green, orange, white, green, red, yellow, green, yellow, red, green, blue, red, orange, blue, white, red, yellow, blue , orange, white, blue, white]<br><br>
+        In order to make a cross on the side of the top of this cube, you have to make the rotations : <br><br>
+        ['Behind', 'Front', 'Left', 'Right', 'Down', 'Behind', 'Front', 'Left', 'Right', 'Backside', 'Front', 'Left', ' Right ',' Down ',' Backward ',' Front ',' Left ',' Right ',' Backside ',' Front ',' Left ',' Right ',' Down ',' Backside ',' Right ' , 'Right', 'Left', 'Front', 'Back', 'Down', 'Left', 'Front', 'Backside', 'Left', 'Front', 'Backside', 'Down', ' Left ',' Front ',' Backside ',' Left ',' Front ',' Backside ',' Down ',' Left ',' Front ',' Backside ',' Left ',' Front ',' Backside ' , 'Bottom', 'Left', 'Front', 'Backside', 'Left', 'Front', 'Backside', 'Down', 'Left', 'Front', 'Backside', 'Left', ' Front ',' Backside ',' Down ',' Left ',' Front ',' Backside ',' Left ',' Front ',' Backside ',' Down ',' Left ',' Front ',' Backside ' , 'Left', 'Front', 'Backside', 'Down', 'Left', 'Front', 'Backside', 'Left', 'Front', 'Backside', 'Down', 'Left', ' Before ',' Backside ',' Left ',' Backward ',' Left ',' Front ',' Down ',' Left ',' Front ',' Left ',' Front ',' Down ',' Front ',' Left ',' Front ',' Front ',' Front ',' Front ',' Right ',' Right ',' Right ',' Down ',' Right ',' Front ',' Front ' ]</p></li>
+    </ul>
+    <p>In other words, this cube was not the simplest.</p>
+    <ul>
+      <li><p><b><img class="Chevron" src="Images/chevron.png" alt="Chevron"> Cube 2 : </b><br><br>
+        [white, green, orange, blue, red, yellow, white, orange, blue, green, red, yellow, orange, white, green, blue, red, white, yellow, orange, blue, white, green, red, blue red, yellow, yellow, green, orange, orange, yellow, green, white, yellow, green, red, green, blue, yellow, white, red, orange, blue, orange, white, blue, red, blue, white , orange, green, red, yellow]<br><br>
+        In order to make a cross on the side of the top of this cube, you have to make the rotations : <br><br>
+        ['Derriere', 'Right', 'Right', 'Right', 'Derriere', 'Derriere', 'Derriere', 'Left', 'Front', 'Down', 'Front', 'Devant', 'Down', 'Front', 'Front', 'Down', 'Front', 'Front']</p></li>
+    </ul>
+    <p>We can see that this cube is much simpler !</p>
+    <h3>Source code</h3>
+    <p>If you'd like to download the source code for this program, <a href="http://www.mediafire.com/file/25c8a7mdcj1r87i/Rubik%27s%20Cube.pl">follow this link</a>. But do not forget that you must have a prolog compiler installed on your machine to run it. This project having been realized to work on GNU Prolog, I advise you to install<a href="http://www.gprolog.org/"> this one.</a></p>
+  </div>
+  <br>
+  <footer>
+  <div class="socialMedia">
+    <h1>FEEL FREE TO CONTACT ME !</h1>
+    <a href="mailto:clement.lecoeur34@gmail.com"><img src="Images/mail.png" alt="France"></a>
+    <a href="https://www.linkedin.com/in/clement-lecoeur-b94000109/"><img src="Images/linkedin.png" alt="France"></a>
+  </div>
+  </footer>
 </body>
 </html>
